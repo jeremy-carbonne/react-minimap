@@ -9,14 +9,14 @@ export class Minimap extends React.Component {
     selector: PropTypes.string.isRequied,
     width: PropTypes.number, /** in pixel */
     height: PropTypes.number, /** in pixel */
-    //keepRatio: PropTypes.bool /** ratio 1:1 */
+    keepAspectRatio: PropTypes.bool,
     childComponent: PropTypes.any,
   };
 
   static defaultProps = {
     width: 200,
     height: 200,
-    keepRatio: false,
+    keepAspectRatio: false,
     childComponent: Child
   };
 
@@ -33,6 +33,8 @@ export class Minimap extends React.Component {
     this.state = {
       children: null,
       viewport: null,
+      width: props.width,
+      height: props.height,
     };
 
     this.downState = false
@@ -50,6 +52,11 @@ export class Minimap extends React.Component {
     window.removeEventListener("resize", this.resize)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.keepAspectRatio !== this.props.keepAspectRatio)
+      setTimeout(this.synchronize);
+  }
+
   componentDidUpdate() {
     if (this.initState) {
       this.initState = false
@@ -60,24 +67,38 @@ export class Minimap extends React.Component {
   }
 
   init() {
-    const {width, height, childComponent} = this.props
+    const {childComponent, keepAspectRatio} = this.props
     const ChildComponent = childComponent
+    const {scrollWidth, scrollHeight, scrollTop, scrollLeft} = this.source
     const sourceRect = this.source.getBoundingClientRect()
 
-    let ratioX = width / this.source.scrollWidth;
-    let ratioY = (this.props.keepRatio) ? ratioX : height / this.source.scrollHeight;
+    let {width, height} = this.props
+
+    let ratioX = width / scrollWidth;
+    let ratioY = height / scrollHeight;
     
+    if (keepAspectRatio) {
+      if (ratioX < ratioY) {
+        ratioY = ratioX
+        height = Math.round( scrollHeight / (scrollWidth / width) )
+      } else {
+        ratioX = ratioY
+        width = Math.round( scrollWidth / (scrollHeight / height) )
+      }
+    }
 
     const nodes = this.ref.querySelectorAll(this.props.selector)
     this.setState({
       ...this.state,
+      height,
+      width,
       children: _.map(nodes, (node, key) => {
         const {width, height, left, top} = node.getBoundingClientRect()
 
         var wM = width * ratioX;
         var hM = height * ratioY;
-        var xM = (left + this.source.scrollLeft - sourceRect.left) * ratioX;
-        var yM = (top + this.source.scrollTop - sourceRect.top) * ratioY;
+        var xM = (left + scrollLeft - sourceRect.left) * ratioX;
+        var yM = (top + scrollTop - sourceRect.top) * ratioY;
 
         return (
           <ChildComponent
@@ -111,7 +132,7 @@ export class Minimap extends React.Component {
     if (this.downState == false)
       return
 
-    const {width, height} = this.props
+    const {width, height} = this.state
     let event;
 
     e.preventDefault();
@@ -158,7 +179,7 @@ export class Minimap extends React.Component {
   }
 
   synchronize() {
-    const {width, height} = this.props
+    const {width, height} = this.state
 
     const rect = this.source.getBoundingClientRect()
 
@@ -199,7 +220,8 @@ export class Minimap extends React.Component {
 
 
   render() {
-    const {width, height, style} = this.props
+    const {style} = this.props
+    const {width, height} = this.state
 
     return (  
       <div 
