@@ -22,6 +22,7 @@ const HEX = {
 class App extends Component {
 
   state = {
+    checked: false,
     random1: {left: '10px', top: '10px'},
     random2: {left: '1000px', top: '100px'},
     random3: {left: '350px', top: '50px'},
@@ -79,11 +80,20 @@ class App extends Component {
     return (
       <div className="App">
         <div className="nav-bar">
-          Nav bar
+          <span><a href="https://github.com/jeremy-carbonne/react-minimap">Github react-minimap</a></span>
+          <div className="keep-aspect-ratio">
+            keep aspect ratio
+            <input 
+              type="checkbox" 
+              checked={this.state.checked} 
+              onChange={(event) => {
+                this.setState({...this.state, checked: event.target.checked})}} 
+            />
+          </div> 
         </div>
         <div className="container">
 
-          <Minimap selector=".box" childComponent={this.renderChild.bind(this)}>
+          <Minimap selector=".box" keepAspectRatio={this.state.checked} childComponent={this.renderChild.bind(this)}>
             <Dark />
             <Yellow className="pos-rlt" style={random1}/>
             <Red className="pos-rlt" style={{width: "200px", left: '4000px', top: '100px'}}/>
