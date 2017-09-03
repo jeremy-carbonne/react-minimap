@@ -11,9 +11,9 @@
 	position: fixed; 
 	right: 0;
 	z-index: 1; 
-	border: 1px dashed white;
+	margin: 10px;
 	background-color: rgba(0, 0, 0, 0.29);
-	border: 1px solid #AAA;
+	border: 1px solid rgba(0, 0, 0, 0.17);
 }
 
 .minimap-container {
@@ -22,7 +22,7 @@
 	height: 100%;
 }
 
-.minimap-dummy {
+.minimap-children {
 	background: #CCC;
 	border: 1px solid black;
 	box-sizing: border-box;

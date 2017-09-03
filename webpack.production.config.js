@@ -1,5 +1,5 @@
-var webpack = require('webpack');
-
+const webpack = require('webpack');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 /**
  * This is the Webpack configuration file for production.
  */
@@ -27,11 +27,15 @@ module.exports = {
   module: {
     rules: [
       { test: /\.js?$/, exclude: /node_modules/, use: "babel-loader" },
-      { test: /\.css?$/, exclude: /node_modules/, use: ["style-loader", "css-loader"] }
+      { test: /\.css?$/, exclude: /node_modules/, use: ExtractTextPlugin.extract(["css-loader"]) }
     ]
   },
 
   resolve: {
     extensions: ['.js', '.jsx']
-  }
+  },
+
+  plugins: [
+    new ExtractTextPlugin("./react-minimap.css"),
+  ]
 };

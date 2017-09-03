@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import PropTypes from 'prop-types'
+import Child from './components/Child'
 import './react-minimap.css'
 
 export class Minimap extends React.Component {
@@ -9,12 +10,14 @@ export class Minimap extends React.Component {
     width: PropTypes.number, /** in pixel */
     height: PropTypes.number, /** in pixel */
     //keepRatio: PropTypes.bool /** ratio 1:1 */
+    childComponent: PropTypes.any,
   };
 
   static defaultProps = {
     width: 200,
     height: 200,
     keepRatio: false,
+    childComponent: Child
   };
 
   constructor(props) {
@@ -28,7 +31,7 @@ export class Minimap extends React.Component {
     this.resize = _.throttle(this.synchronize, 100)
 
     this.state = {
-      minimap: null,
+      children: null,
       viewport: null,
     };
 
@@ -57,7 +60,8 @@ export class Minimap extends React.Component {
   }
 
   init() {
-    const {width, height} = this.props
+    const {width, height, childComponent} = this.props
+    const ChildComponent = childComponent
     const sourceRect = this.source.getBoundingClientRect()
 
     let ratioX = width / this.source.scrollWidth;
@@ -67,7 +71,7 @@ export class Minimap extends React.Component {
     const nodes = this.ref.querySelectorAll(this.props.selector)
     this.setState({
       ...this.state,
-      minimap: _.map(nodes, (node, key) => {
+      children: _.map(nodes, (node, key) => {
         const {width, height, left, top} = node.getBoundingClientRect()
 
         var wM = width * ratioX;
@@ -76,16 +80,13 @@ export class Minimap extends React.Component {
         var yM = (top + this.source.scrollTop - sourceRect.top) * ratioY;
 
         return (
-          <div
-            key={key} 
-            style={{
-              position: 'absolute',
-              width : Math.round( wM ),
-              height : Math.round( hM ),
-              left : Math.round( xM ),
-              top : Math.round( yM ),
-            }}
-            className="minimap-dummy"
+          <ChildComponent
+            key={key}
+            width={Math.round( wM )}
+            height={Math.round( hM )}
+            left={Math.round( xM )}
+            top={Math.round( yM )}
+            node={node}
           />
         )
       })
@@ -97,9 +98,9 @@ export class Minimap extends React.Component {
 
     this.x = Math.round( pos.left + this.l + this.w / 2 );
     this.y = Math.round( pos.top + this.t + this.h / 2 );
-    this.move( e );
 
     this.downState = true
+    this.move( e );
   }
 
   up() {
@@ -198,7 +199,7 @@ export class Minimap extends React.Component {
 
 
   render() {
-    const {width, height} = this.props
+    const {width, height, style} = this.props
 
     return (  
       <div 
@@ -207,28 +208,26 @@ export class Minimap extends React.Component {
         ref={(source) => {this.source = source;}}
       >
         <div 
-          ref={(minimap) => { this.minimap = minimap; }} 
-          
-          onMouseDown={this.down} 
-          onTouchStart={this.down} 
-
-          onTouchMove={this.move }
-          onMouseMove={this.move }
-
-          onTouchEnd={this.up}
-          onMouseUp={this.up}
-
+          className="minimap"
           style={{            
             width: `${width}px`, 
-            height: `${height}px`, 
+            height: `${height}px`,
           }}
-          className="minimap"
+          
+          ref={(minimap) => { this.minimap = minimap; }} 
+
+          onMouseDown={this.down} 
+          onTouchStart={this.down} 
+          onTouchMove={this.move}
+          onMouseMove={this.move}
+          onTouchEnd={this.up}
+          onMouseUp={this.up}
         >
           {this.state.viewport}
-          {this.state.minimap}
+          {this.state.children}
         </div>
 
-        <div ref={(input) => { this.ref = input; }}>
+        <div ref={(container) => { this.ref = container; }}>
           {this.props.children}
         </div>
       </div>
