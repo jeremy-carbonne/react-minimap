@@ -64,6 +64,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "build-example": "node scripts/build.js",
     "build": "rm -rf dist/* && node_modules/webpack/bin/webpack.js -p --config webpack.production.config.js",
     "test": "node scripts/test.js --env=jsdom"
   },
