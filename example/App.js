@@ -4,6 +4,10 @@ import './App.css';
 import Minimap, {Child as ChildComponent} from 'react-minimap';
 import 'react-minimap.css'
 
+/*eslint-disable */
+const COMMIT_HASH = __COMMIT_HASH__
+/*eslint-enable */
+
 
 const YELLOW = 'yellow'
 const RED    = 'red'
@@ -93,6 +97,7 @@ class App extends Component {
             <Yellow />
           </Minimap>
         </div>
+        <div className="commit-hash">{COMMIT_HASH}</div>
       </div>
     );
   }

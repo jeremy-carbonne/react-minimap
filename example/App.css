@@ -2,27 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
 .nav-bar {
   height: 60px;
   background-color: black; 
@@ -49,7 +28,6 @@
 .yellow { background-color: #FFEE58; }
 .red { background-color: #f44336; }
 .blue { background-color: blue; }
-
 
 .minimap {
   margin: 30px
@@ -83,4 +61,9 @@
   padding: 5%;
 }
 
-
+.commit-hash {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  color: rgba(197, 197, 197, 0.66);
+}
