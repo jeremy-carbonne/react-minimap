@@ -2,7 +2,7 @@
   "name": "react-minimap",
   "version": "0.3.0",
   "description": "A minimap for React",
-  "main": "dist/react-minimap.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/jeremy-carbonne/react-minimap.git"
