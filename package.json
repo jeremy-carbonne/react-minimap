@@ -1,6 +1,6 @@
 {
   "name": "react-minimap",
-  "version": "0.4.0",
+  "version": "0.7.0",
   "description": "A minimap for React",
   "main": "dist/index.js",
   "repository": {
@@ -21,6 +21,9 @@
   "dependencies": {
     "lodash": "^4.17.4"
   },
+  "peerDependencies": {
+    "react": "^15.x || ^16.x"
+  },
   "devDependencies": {
     "autoprefixer": "7.1.2",
     "babel-cli": "^6.26.0",
@@ -39,7 +42,7 @@
     "css-loader": "0.28.4",
     "dotenv": "4.0.0",
     "enzyme": "^3.0.0",
-    "enzyme-adapter-react-15": "^1.0.0",
+    "enzyme-adapter-react-16": "^1.0.0",
     "eslint": "4.4.1",
     "eslint-config-react-app": "^2.0.0",
     "eslint-loader": "1.9.0",
@@ -51,15 +54,15 @@
     "file-loader": "0.11.2",
     "fs-extra": "3.0.1",
     "html-webpack-plugin": "2.29.0",
-    "jest": "20.0.4",
+    "jest": "^21.2.1",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.6",
     "promise": "8.0.1",
-    "react": "^15.6.1",
+    "react": "^16.0.0",
     "react-dev-utils": "^4.0.0",
-    "react-dom": "^15.6.1",
-    "react-test-renderer": "15",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
     "sinon": "^4.0.0",
     "style-loader": "0.18.2",
     "sw-precache-webpack-plugin": "0.11.4",
@@ -118,6 +121,7 @@
   },
   "files": [
     "package.json",
-    "dist/react-minimap.js"
+    "dist/react-minimap.js",
+    "dist/react-minimap.css"
   ]
 }
