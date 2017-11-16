@@ -6,7 +6,7 @@ import './react-minimap.css'
 
 export class Minimap extends React.Component {
   static propTypes = {
-    selector: PropTypes.string.isRequired,
+    identifier: PropTypes.string.isRequired,
     width: PropTypes.number, /** in pixel */
     height: PropTypes.number, /** in pixel */
     keepAspectRatio: PropTypes.bool,
@@ -92,7 +92,7 @@ export class Minimap extends React.Component {
       }
     }
 
-    const nodes = this.ref.querySelectorAll(this.props.selector)
+    const nodes = this.ref.querySelectorAll(this.props.identifier)
     this.setState({
       ...this.state,
       height,

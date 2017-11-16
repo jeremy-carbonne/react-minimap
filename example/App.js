@@ -93,7 +93,7 @@ class App extends Component {
         </div>
         <div className="container">
 
-          <Minimap selector=".box" keepAspectRatio={this.state.checked} childComponent={this.renderChild.bind(this)}>
+          <Minimap identifier=".box" keepAspectRatio={this.state.checked} childComponent={this.renderChild.bind(this)}>
             <Dark />
             <Yellow className="pos-rlt" style={random1}/>
             <Red className="pos-rlt" style={{width: "200px", left: '4000px', top: '100px'}}/>

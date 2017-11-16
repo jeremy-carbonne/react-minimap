@@ -1,23 +1,19 @@
 {
   "name": "react-minimap",
-  "version": "0.7.2",
+  "version": "0.4.1",
   "description": "A minimap for React",
   "main": "dist/react-minimap.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jeremy-carbonne/react-minimap.git"
+    "url": "https://github.com/WhoAteDaCake/react-minimap"
   },
   "keywords": [
     "react-minimap",
     "minimap",
     "react-component"
   ],
-  "author": "Jérémy CARBONNE",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/jeremy-carbonne/react-minimap/issues"
-  },
-  "homepage": "https://github.com/jeremy-carbonne/react-minimap",
+  "homepage": "https://github.com/WhoAteDaCake/react-minimap",
   "dependencies": {
     "lodash": "^4.17.4"
   },
