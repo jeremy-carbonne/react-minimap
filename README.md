@@ -30,3 +30,18 @@ import Minimap from 'react-minimap';
 	</div>
 </Minimap>
 ```
+
+## Configuration
+
+The `Minimap` supports the following props:
+
+| Prop name        | Type                            | Default value              | Description                                                                              |
+|------------------|---------------------------------|----------------------------|------------------------------------------------------------------------------------------|
+| selector         | string                          | is required                | A css selector for specify what you want to render inside the minimap                    |
+| width            | number                          | `200`                      |                                                                                          |
+| height           | number                          | `200`                      |                                                                                          |
+| keepAspectRatio  | boolean                         | `false`                    |                                                                                          |
+| childComponent   | any                             | Internal Component         | Allows customizing how components matched by selector are rendered (optional)            |
+| onMountCenterOnX | boolean                         | `false`                    |                                                                                          |
+| onMountCenterOnY | boolean                         | `false`                    |                                                                                          |
+
