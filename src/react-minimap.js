@@ -6,6 +6,7 @@ import './react-minimap.css'
 
 export class Minimap extends React.Component {
   static propTypes = {
+    className: PropTypes.string,
     selector: PropTypes.string.isRequired,
     width: PropTypes.number, /** in pixel */
     height: PropTypes.number, /** in pixel */
@@ -238,7 +239,7 @@ export class Minimap extends React.Component {
 
     return (  
       <div 
-        className="minimap-container"
+        className={"minimap-container " + this.props.className}
         onScroll={this.synchronize} 
         ref={(source) => {this.source = source;}}
       >
