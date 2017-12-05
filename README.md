@@ -38,6 +38,7 @@ The `Minimap` supports the following props:
 | Prop name        | Type                            | Default value              | Description                                                                              |
 |------------------|---------------------------------|----------------------------|------------------------------------------------------------------------------------------|
 | selector         | string                          | is required                | A css selector for specify what you want to render inside the minimap                    |
+| className        | string                          | ''                         | A className for the minimap component                                                    |
 | width            | number                          | `200`                      |                                                                                          |
 | height           | number                          | `200`                      |                                                                                          |
 | keepAspectRatio  | boolean                         | `false`                    |                                                                                          |
