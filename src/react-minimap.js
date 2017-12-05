@@ -17,6 +17,7 @@ export class Minimap extends React.Component {
   };
 
   static defaultProps = {
+    className: "",
     width: 200,
     height: 200,
     keepAspectRatio: false,
