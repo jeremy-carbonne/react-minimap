@@ -173,6 +173,10 @@ export class Minimap extends React.Component {
     this.l += dx;
     this.t += dy;
 
+    // Sanity checks: 
+    this.l = (this.l < 0 ? 0 : this.l)
+    this.t = (this.t < 0 ? 0 : this.t)
+
     const coefX = width / this.source.scrollWidth;
     const coefY = height / this.source.scrollHeight;
     const left = this.l / coefX;
@@ -199,8 +203,9 @@ export class Minimap extends React.Component {
     const lX = scroll[ 0 ] * scaleX;
     const lY = scroll[ 1 ] * scaleY;
 
-    this.w = Math.round( lW );
-    this.h = Math.round( lH );
+    // Ternary operation includes sanity check 
+    this.w = (Math.round( lW ) > this.state.width) ? this.state.width : Math.round( lW );
+    this.h = (Math.round( lH ) > this.state.height) ? this.state.height : Math.round( lH );
     this.l = Math.round( lX );
     this.t = Math.round( lY );
 
