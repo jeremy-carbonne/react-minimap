@@ -59,8 +59,11 @@ export class Minimap extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.keepAspectRatio !== this.props.keepAspectRatio)
+    if (nextProps.keepAspectRatio !== this.props.keepAspectRatio) {
       setTimeout(this.synchronize);
+    } else if (nextProps.children !== this.props.children) {
+      setTimeout(this.synchronize);
+    }
   }
 
   componentDidUpdate() {
@@ -73,10 +76,10 @@ export class Minimap extends React.Component {
   }
 
   init() {
-    const {childComponent, keepAspectRatio} = this.props
-    const ChildComponent = childComponent
-    const {scrollWidth, scrollHeight, scrollTop, scrollLeft} = this.source
-    const sourceRect = this.source.getBoundingClientRect()
+    const {childComponent, keepAspectRatio} = this.props;
+    const ChildComponent = childComponent;
+    const {scrollWidth, scrollHeight, scrollTop, scrollLeft} = this.source;
+    const sourceRect = this.source.getBoundingClientRect();
 
     let {width, height} = this.props
 
