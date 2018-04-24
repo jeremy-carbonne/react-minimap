@@ -15,6 +15,7 @@ A minimap for React based on [jquery-minimap](https://github.com/john-bai/jquery
 ## Usage
 ```js
 import Minimap from 'react-minimap';
+import 'react-minimap/react-minimap.css';
 ```
 
 ```html
