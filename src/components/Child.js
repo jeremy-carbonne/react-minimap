@@ -1,9 +1,19 @@
+// @flow
+
 import React from 'react';
 import PropTypes from 'prop-types'
 import '../react-minimap.css'
 
+export type Props = {
+  width: number,
+  height: number,
+  top: number,
+  left: number,
+  node: any,
+};
 
-export class Child extends React.Component {
+
+export class Child extends React.Component<Props> {
   static propTypes = {
     width: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
