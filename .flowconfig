@@ -7,5 +7,7 @@
 [lints]
 
 [options]
+module.name_mapper='.*\(.css\)' -> 'empty/object'
+suppress_comment= \\(.\\|\n\\)*\\$flow-disable
 
 [strict]

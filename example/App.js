@@ -1,10 +1,21 @@
+// @flow
+
 import React, { Component } from 'react';
 import {Yellow, Red, Dark} from './Block'
 import './App.css';
+
+// $flow-disable
 import Minimap, {Child as ChildComponent} from 'react-minimap';
+// $flow-disable
+import type {ChildProps} from 'react-minimap'
+
+/* import for dev */
+// import Minimap, {Child as ChildComponent} from '../src/';
+// import type {ChildProps} from '../src/'
 import 'react-minimap.css'
 
 /*eslint-disable */
+// $flow-disable
 const COMMIT_HASH = __COMMIT_HASH__
 /*eslint-enable */
 
@@ -19,7 +30,50 @@ const HEX = {
   [DARK]  : '212121',
 }
 
-class App extends Component {
+
+class ChildBox extends React.Component<ChildProps> {
+
+  render() {
+    const { width, height, left, top, node } = this.props
+    const classNames = [YELLOW, RED, DARK]
+    let classNameFound = null
+
+    node.classList.forEach(className => {
+      if (classNames.includes(className))
+      {
+        classNameFound = className
+        return false
+      }
+    })
+
+    if (classNameFound === null)
+      return <ChildComponent {...{width, height, left, top, node}} />
+
+    return (
+      <div
+        style={{
+          position: 'absolute',
+          width,
+          height,
+          left,
+          top,
+          backgroundColor: '#' + HEX[classNameFound],
+        }}
+      />
+    )
+  }
+}
+
+
+type Props = {};
+type State = {
+  checked: any,
+  random1: any,
+  random2: any,
+  random3: any,
+};
+
+class App extends Component<Props, State> {
 
   state = {
     checked: false,
@@ -28,7 +82,7 @@ class App extends Component {
     random3: {left: '350px', top: '50px'},
   }
 
-  random(max) {
+  random(max: number) {
     return Math.round(Math.random() * max)
   }
 
@@ -44,35 +98,7 @@ class App extends Component {
     }, 2000)
   }
 
-  renderChild({ width, height, left, top, node }) {
 
-    const classNames = [YELLOW, RED, DARK]
-    let classNameFound = null
-
-    node.classList.forEach(className => {
-      if (classNames.includes(className))
-      {
-        classNameFound = className
-        return false
-      }
-    })
-
-    if (classNameFound === null)
-      return <ChildComponent {...{width, height, left, top}} />
-
-    return (
-      <div
-        style={{
-          position: 'absolute',
-          width,
-          height,
-          left,
-          top,
-          backgroundColor: '#' + HEX[classNameFound],
-        }}
-      />
-    )
-  }
 
   render() {
     const {random1, random2, random3} = this.state
@@ -80,7 +106,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="nav-bar">
-          <span><a href="https://github.com/jeremy-carbonne/react-minimap">Github react-minimap</a></span>
+          <span><a href="https://github.com/jeremy-carbonne/react-minimap">Github react-minimap ~ Flow</a></span>
           <div className="keep-aspect-ratio">
             keep aspect ratio
             <input 
@@ -93,7 +119,7 @@ class App extends Component {
         </div>
         <div className="container">
 
-          <Minimap selector=".box" keepAspectRatio={this.state.checked} childComponent={this.renderChild.bind(this)}>
+          <Minimap selector=".box" keepAspectRatio={this.state.checked} childComponent={ChildBox}>
             <Dark />
             <Yellow className="pos-rlt" style={random1}/>
             <Red className="pos-rlt" style={{width: "200px", left: '4000px', top: '100px'}}/>
